@@ -128,6 +128,7 @@
 			
 			if (request.status == 200) {
 				alert('가입 완료');
+				location.href = '${pageContext.request.contextPath}' + '/'
 			}else{
 				alert('가입 실패');
 			}
