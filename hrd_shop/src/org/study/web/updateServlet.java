@@ -15,33 +15,31 @@ import org.study.dao.hrdshopdao;
 import org.study.model.Member;
 
 /**
- * Servlet implementation class registerServlet
+ * Servlet implementation class updateServlet
  */
-@WebServlet("/register")
-public class registerServlet extends HttpServlet {
+@WebServlet("/update")
+public class updateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private hrdshopdao dao = new hrdshopdao();
-       
+	private hrdshopdao dao = new hrdshopdao();   
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberId = 0;
+		
+		Integer id = Integer.parseInt(request.getParameter("id"));
 		try {
-			memberId = dao.getNextMemberId();
+			Member member = dao.getMemberInfo(id);
+			request.setAttribute("member", member);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("next Member Id: " + memberId);
-		request.setAttribute("id", memberId);
-		request.getRequestDispatcher("/WEB-INF/view/register.jsp")
+		request.getRequestDispatcher("/WEB-INF/view/update.jsp")
 		.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 		
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
@@ -73,7 +71,7 @@ public class registerServlet extends HttpServlet {
 		
 		
 		try {
-			dao.registerMember(member);
+			dao.updateMember(member);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

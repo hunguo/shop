@@ -3,60 +3,69 @@
 <%@ include file="/common/header.jsp" %>
 
 	<section>
-		<h1>회원등록</h1>
+		<h1>회원수정</h1>
 		
-	<form action="${pageContext.request.contextPath }/register 
+	<form action="${pageContext.request.contextPath }/update
 		method="post"
 		id='reg_form'>
 		<table>
 			<tr>
 				<td><label for="id" >회원번호(자동발생)</label></td>
 				<td>
-					<input type="text" name="id" value="${id}" readonly="readonly">
+					<input type="text" name="id"  
+					value="${member.id }" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<td><label for="name" >회원성명</label></td>
 				<td>
-					<input type="text" id='name' name="name" >
+					<input type="text" id='name' name="name" 
+					value="${member.name }">
 				</td>
 			</tr>
 			<tr>
 				<td><label for="phone" >회원전화</label></td>
 				<td>
-					<input type="text" id='phone' name="phone" >
+					<input type="text" id='phone' name="phone" 
+					value="${member.phone }">
 				</td>
 			</tr>
 			<tr>
 				<td><label for="address" >회원주소</label></td>
 				<td>
-					<input type="text"  id='address' name="address" required>
+					<input type="text"  id='address' name="address" 
+					value="${member.address }" required
+					>
 				</td>
 			</tr>
 			<tr>
 				<td><label for="join_date" >가입일자</label></td>
 				<td>
-					<input type="date" id='join_date'name="join_date" required>
+					<input type="date" id='join_date'name="join_date"
+					value="${member.join_date }" 
+					 required>
 				</td>
 			</tr>
 			<tr>
 				<td><label for="grade" >회원등급</label></td>
 				<td>
-					<input type="text" id='grade' name="grade" required>
+					<input type="text" id='grade' name="grade" 
+					value="${member.grade }"  required>
 				</td>
 			</tr>
 			<tr>
 				<td><label for="city_code" >도시코드</label></td>
 				<td>
-					<input type="text"  id='city_code'name="city_code" required>
+					<input type="text"  id='city_code'name="city_code" 
+					value="${member.city_code }" required>
 				</td>
 			</tr>
 
 			<tr>
 				<td></td>
 				<td>
-					<button id='reg_button' type='button' onclick='register()'>
-						등록
+					<button id='reg_button' type='button' onclick='update()'>
+						수정
 					</button>
 					<button id='list_button' type='button' onclick='list_member()'>
 						조회
@@ -70,7 +79,7 @@
 
 <script>
 	var request;
-	function register() {
+	function update() {
 		if (validate() == false) {
 			return;
 		
@@ -114,7 +123,7 @@
 		try {
 			request.onreadystatechange = getResult;
 			request.open("POST",
-						"${pageContext.request.contextPath}/register",
+						"${pageContext.request.contextPath}/update",
 						true);
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(params);
@@ -127,9 +136,9 @@
 		if (request.readyState == 4) {
 			
 			if (request.status == 200) {
-				alert('가입 완료');
+				alert('수정 완료');
 			}else{
-				alert('가입 실패');
+				alert('수정 실패');
 			}
 			
 		}
